@@ -7,107 +7,373 @@
     <style>
         body {
             margin: 0;
-            background: #111;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             color: #fff;
-            font-family: system-ui, -apple-system, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
             flex-direction: column;
+            padding: 20px;
         }
-        .content {
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .security-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px 40px;
             text-align: center;
-            font-size: 1.15rem;
-            margin-bottom: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
-        .contact-btn {
-            background: #333;
+        
+        .security-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .security-card:hover::before {
+            left: 100%;
+        }
+        
+        .animated-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            animation: bounce 2s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+            to { filter: drop-shadow(0 0 25px rgba(255,255,255,0.7)); }
+        }
+        
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #fff, #fdbb2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .domain-display {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
             color: #fff;
-            border: 1px solid #555;
-            padding: 10px 20px;
-            border-radius: 5px;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .domain-display::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .belongs-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 15px 0;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .researcher-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            margin: 20px 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6); }
+        }
+        
+        .contact-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            margin: 25px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
         }
+        
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .contact-btn:hover::before {
+            left: 100%;
+        }
+        
         .contact-btn:hover {
-            background: #444;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.6);
         }
+        
         .contact-form {
             display: none;
-            background: #222;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            max-width: 400px;
-            width: 90%;
-        }
-        .form-group {
-            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 25px;
             text-align: left;
+            animation: slideDown 0.5s ease;
+            backdrop-filter: blur(10px);
         }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
         label {
             display: block;
-            margin-bottom: 5px;
-            color: #bbb;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
         }
+        
         input, textarea {
             width: 100%;
-            padding: 8px;
-            background: #333;
-            border: 1px solid #555;
-            border-radius: 4px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
             color: #fff;
             box-sizing: border-box;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
+        
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+        }
+        
         textarea {
-            height: 100px;
+            height: 120px;
             resize: vertical;
         }
+        
         .submit-btn {
-            background: #444;
-            color: #fff;
-            border: 1px solid #666;
-            padding: 10px 20px;
-            border-radius: 4px;
+            background: linear-gradient(45deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.4);
+            position: relative;
+            overflow: hidden;
         }
+        
         .submit-btn:hover {
-            background: #555;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(72, 187, 120, 0.6);
         }
+        
         .success-message {
-            color: #4CAF50;
+            background: rgba(198, 246, 213, 0.9);
+            color: #22543d;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
             display: none;
-            margin-top: 10px;
+            font-weight: 600;
+            text-align: center;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: floatParticle 20s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <p>This subdomain <b id="hostname"></b> is taken by <b>7R1X7R41L</b></p>
-    </div>
+    <div class="floating-particles" id="particles"></div>
     
-    <button class="contact-btn" onclick="showContactForm()">Contact Researcher</button>
-    
-    <div id="contactForm" class="contact-form">
-        <div class="form-group">
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" placeholder="Enter your name">
+    <div class="security-card">
+        <div class="animated-icon">🛡️</div>
+        
+        <h1 class="main-title">THIS SUBDOMAIN</h1>
+        
+        <div class="domain-display" id="hostname"></div>
+        
+        <div class="belongs-text">belongs to</div>
+        
+        <div class="researcher-badge">
+            <span>👨‍💻</span>
+            7R1X7R41L
         </div>
-        <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" placeholder="Enter your message"></textarea>
-        </div>
-        <button class="submit-btn" onclick="sendEmail()">Send Message</button>
-        <div id="successMessage" class="success-message">
-            Message prepared for sending!
+        
+        <button class="contact-btn" onclick="showContactForm()">
+            <span>📧</span>
+            Contact Security Researcher
+        </button>
+        
+        <div id="contactForm" class="contact-form">
+            <div class="form-group">
+                <label>
+                    <span>👤</span>
+                    Your Name:
+                </label>
+                <input type="text" id="name" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label>
+                    <span>💬</span>
+                    Message:
+                </label>
+                <textarea id="message" placeholder="Enter your message regarding this security finding"></textarea>
+            </div>
+            <button class="submit-btn" onclick="sendEmail()">
+                <span>🚀</span>
+                Send Secure Message
+            </button>
+            <div id="successMessage" class="success-message">
+                ✅ Message prepared for secure transmission
+            </div>
         </div>
     </div>
 
     <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${15 + Math.random() * 10}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
         // Display current hostname
         document.getElementById('hostname').textContent = window.location.hostname;
         
@@ -118,10 +384,10 @@
             
             if (form.style.display === 'block') {
                 form.style.display = 'none';
-                button.textContent = 'Contact Researcher';
+                button.innerHTML = '<span>📧</span> Contact Security Researcher';
             } else {
                 form.style.display = 'block';
-                button.textContent = 'Hide Form';
+                button.innerHTML = '<span>▲</span> Hide Contact Form';
             }
         }
         
@@ -136,8 +402,8 @@
             }
             
             // Create mailto link with exact email
-            const subject = `Contact from Subdomain Takeover PoC - ${window.location.hostname}`;
-            const body = `Name: ${name}\nMessage: ${message}\n\nFrom: ${window.location.hostname}`;
+            const subject = `Security Research - Subdomain Takeover - ${window.location.hostname}`;
+            const body = `Name: ${name}\nMessage: ${message}\n\nAffected Domain: ${window.location.hostname}\nResearcher: 7R1X7R41L\n\nThis is a responsible security disclosure.`;
             const mailtoLink = `mailto:me.fatalops@proton.me?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
             // Open email client
@@ -150,16 +416,19 @@
             document.getElementById('name').value = '';
             document.getElementById('message').value = '';
             
-            // Hide form after 2 seconds
+            // Hide form after 3 seconds
             setTimeout(() => {
                 document.getElementById('contactForm').style.display = 'none';
-                document.querySelector('.contact-btn').textContent = 'Contact Researcher';
+                document.querySelector('.contact-btn').innerHTML = '<span>📧</span> Contact Security Researcher';
                 document.getElementById('successMessage').style.display = 'none';
-            }, 2000);
+            }, 3000);
         }
         
         // Hide form by default
         document.getElementById('contactForm').style.display = 'none';
+        
+        // Initialize particles
+        createParticles();
     </script>
 </body>
 </html>
